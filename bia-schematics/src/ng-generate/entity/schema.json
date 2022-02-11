@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "SchematicsBiaEntity",
+    "title": "Bia Entity Options Schema",
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "string",
+        "description": "The name of the project.",
+        "$default": {
+          "$source": "projectName"
+        }
+      },
+      "aggregat": {
+        "type": "string",
+        "description": "The aggegate of the new entity.",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        },
+        "x-prompt": "To Which aggregate the entity is member?"
+      },
+      "name": {
+        "type": "string",
+        "description": "The singular name of the entity.",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        },
+        "x-prompt": "What should be the singular name of the entity?"
+      },
+      "flat": {
+          "type": "boolean",
+          "default": true,
+          "description": "Flag to indicate if a dir is created."
+      }
+    }
+}

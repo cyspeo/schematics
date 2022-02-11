@@ -1,0 +1,20 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {  
+    "entity": {
+      "description": "A blank schematic.",
+      "factory": "./ng-generate/entity/index",
+      "schema": "./ng-generate/entity/schema.json"
+    },
+    "entityMapper": {
+      "description": "A blank schematic.",
+      "factory": "./ng-generate/entityMapper/index",
+      "schema": "./ng-generate/entityMapper/schema.json"
+    },
+    "frontFeature": {
+      "description": "A blank schematic.",
+      "factory": "./ng-generate/front-feature/index",
+      "schema": "./ng-generate/front-feature/schema.json"
+    }
+  }
+}
