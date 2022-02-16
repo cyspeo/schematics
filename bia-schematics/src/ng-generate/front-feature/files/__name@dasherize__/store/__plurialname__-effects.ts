@@ -12,11 +12,11 @@ import {
   remove,
   multiRemove,
   update
-} from './@plurialname@-actions';
-import { @Name@Das } from '../services/@name@-das.service';
+} from './<%= plurialname %>-actions';
+import { <%= classify(name) %>Das } from '../services/<%= name %>-das.service';
 import { Store } from '@ngrx/store';
-import { getLastLazyLoadEvent } from './@name@.state';
-import { @Name@ } from '../model/@name@';
+import { getLastLazyLoadEvent } from './<%= name %>.state';
+import { <%= classify(name) %> } from '../model/<%= name %>';
 import { DataResult } from 'src/app/shared/bia-shared/model/data-result';
 import { AppState } from 'src/app/store/state';
 import { BiaMessageService } from 'src/app/core/bia-core/services/bia-message.service';
@@ -29,15 +29,15 @@ import { biaSuccessWaitRefreshSignalR } from 'src/app/core/bia-core/shared/bia-a
  */
 
 @Injectable()
-export class @Plurialname@Effects {
+export class <%= classify(plurialname) %>Effects {
   static useSignalR = false;
   loadAllByPost$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAllByPost),
       pluck('event'),
       switchMap((event) =>
-        this.@name@Das.getListByPost(event).pipe(
-          map((result: DataResult<@Name@[]>) => loadAllByPostSuccess({ result: result, event: event })),
+        this.<%= name %>Das.getListByPost(event).pipe(
+          map((result: DataResult<<%= classify(name) %>[]>) => loadAllByPostSuccess({ result: result, event: event })),
           catchError((err) => {
             this.biaMessageService.showError();
             return of(failure({ error: err }));
@@ -52,8 +52,8 @@ export class @Plurialname@Effects {
       ofType(load),
       pluck('id'),
       switchMap((id) => {
-        return this.@name@Das.get(id).pipe(
-          map((@name@) => loadSuccess({ @name@ })),
+        return this.<%= name %>Das.get(id).pipe(
+          map((<%= name %>) => loadSuccess({ <%= name %> })),
           catchError((err) => {
             this.biaMessageService.showError();
             return of(failure({ error: err }));
@@ -66,13 +66,13 @@ export class @Plurialname@Effects {
   create$ = createEffect(() =>
     this.actions$.pipe(
       ofType(create),
-      pluck('@name@'),
-      concatMap((@name@) => of(@name@).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
-      switchMap(([@name@, event]) => {
-        return this.@name@Das.post(@name@).pipe(
+      pluck('<%= name %>'),
+      concatMap((<%= name %>) => of(<%= name %>).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
+      switchMap(([<%= name %>, event]) => {
+        return this.<%= name %>Das.post(<%= name %>).pipe(
           map(() => {
             this.biaMessageService.showAddSuccess();
-            if (@Plurialname@Effects.useSignalR) {
+            if (<%= classify(plurialname) %>Effects.useSignalR) {
               return biaSuccessWaitRefreshSignalR();
             } else {
               return loadAllByPost({ event: <LazyLoadEvent>event });
@@ -90,13 +90,13 @@ export class @Plurialname@Effects {
   update$ = createEffect(() =>
     this.actions$.pipe(
       ofType(update),
-      pluck('@name@'),
-      concatMap((@name@) => of(@name@).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
-      switchMap(([@name@, event]) => {
-        return this.@name@Das.put(@name@, @name@.id).pipe(
+      pluck('<%= name %>'),
+      concatMap((<%= name %>) => of(<%= name %>).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
+      switchMap(([<%= name %>, event]) => {
+        return this.<%= name %>Das.put(<%= name %>, <%= name %>.id).pipe(
           map(() => {
             this.biaMessageService.showUpdateSuccess();
-            if (@Plurialname@Effects.useSignalR) {
+            if (<%= classify(plurialname) %>Effects.useSignalR) {
               return biaSuccessWaitRefreshSignalR();
             } else {
               return loadAllByPost({ event: <LazyLoadEvent>event });
@@ -117,10 +117,10 @@ export class @Plurialname@Effects {
       pluck('id'),
       concatMap((id: number) => of(id).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
       switchMap(([id, event]) => {
-        return this.@name@Das.delete(id).pipe(
+        return this.<%= name %>Das.delete(id).pipe(
           map(() => {
             this.biaMessageService.showDeleteSuccess();
-            if (@Plurialname@Effects.useSignalR) {
+            if (<%= classify(plurialname) %>Effects.useSignalR) {
               return biaSuccessWaitRefreshSignalR();
             } else {
               return loadAllByPost({ event: <LazyLoadEvent>event });
@@ -141,10 +141,10 @@ export class @Plurialname@Effects {
       pluck('ids'),
       concatMap((ids: number[]) => of(ids).pipe(withLatestFrom(this.store.select(getLastLazyLoadEvent)))),
       switchMap(([ids, event]) => {
-        return this.@name@Das.deletes(ids).pipe(
+        return this.<%= name %>Das.deletes(ids).pipe(
           map(() => {
             this.biaMessageService.showDeleteSuccess();
-            if (@Plurialname@Effects.useSignalR) {
+            if (<%= classify(plurialname) %>Effects.useSignalR) {
               return biaSuccessWaitRefreshSignalR();
             } else {
               return loadAllByPost({ event: <LazyLoadEvent>event });
@@ -161,7 +161,7 @@ export class @Plurialname@Effects {
 
   constructor(
     private actions$: Actions,
-    private @name@Das: @Name@Das,
+    private <%= name %>Das: <%= classify(name) %>Das,
     private biaMessageService: BiaMessageService,
     private store: Store<AppState>
   ) {}

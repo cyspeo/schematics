@@ -35,3 +35,11 @@ Dans le répertoire bia
 # run 
 Depuis le répertoire bia : 
 - schematics .:entity Division -debug=false --dry-run=false
+
+# Publish custom schematics
+- This commnand buid the package schematics-bia-1.0.0.tgz
+  - ```npm pack```
+- Install the package into Angular CLI workspace :
+
+  - ```npm i --no-save schematics-bia-1.0.0.tgz```
+

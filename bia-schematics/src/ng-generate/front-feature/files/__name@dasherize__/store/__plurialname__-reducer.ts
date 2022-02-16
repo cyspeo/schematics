@@ -6,46 +6,46 @@ import {
   loadAllByPost,
   load,
   failure
-} from './@plurialname@-actions';
+} from './<%= plurialname %>-actions';
 import { LazyLoadEvent } from 'primeng/api';
-import { @Name@ } from '../model/@name@';
+import { <%= classify(name) %> } from '../model/<%= name %>';
 
-// This adapter will allow is to manipulate @plurialname@ (mostly CRUD operations)
-export const @plurialname@Adapter = createEntityAdapter<@Name@>({
-  selectId: (@name@: @Name@) => @name@.id,
+// This adapter will allow is to manipulate <%= plurialname %> (mostly CRUD operations)
+export const <%= plurialname %>Adapter = createEntityAdapter<<%= classify(name) %>>({
+  selectId: (<%= name %>: <%= classify(name) %>) => <%= name %>.id,
   sortComparer: false
 });
 
 // -----------------------------------------
 // The shape of EntityState
 // ------------------------------------------
-// interface EntityState<@Name@> {
+// interface EntityState<<%= classify(name) %>> {
 //   ids: string[] | number[];
-//   entities: { [id: string]: @Name@ };
+//   entities: { [id: string]: <%= classify(name) %> };
 // }
 // -----------------------------------------
 // -> ids arrays allow us to sort data easily
 // -> entities map allows us to access the data quickly without iterating/filtering though an array of objects
 
-export interface State extends EntityState<@Name@> {
+export interface State extends EntityState<<%= classify(name) %>> {
   // additional props here
   totalCount: number;
-  current@Name@: @Name@;
+  current<%= classify(name) %>: <%= classify(name) %>;
   lastLazyLoadEvent: LazyLoadEvent;
   loadingGet: boolean;
   loadingGetAll: boolean;
 }
 
-export const INIT_STATE: State = @plurialname@Adapter.getInitialState({
+export const INIT_STATE: State = <%= plurialname %>Adapter.getInitialState({
   // additional props default values here
   totalCount: 0,
-  current@Name@: <@Name@>{},
+  current<%= classify(name) %>: <<%= classify(name) %>>{},
   lastLazyLoadEvent: <LazyLoadEvent>{},
   loadingGet: false,
   loadingGetAll: false,
 });
 
-export const @name@Reducers = createReducer<State>(
+export const <%= name %>Reducers = createReducer<State>(
   INIT_STATE,
   on(loadAllByPost, (state, { event }) => {
     return { ...state, loadingGetAll: true };
@@ -54,18 +54,18 @@ export const @name@Reducers = createReducer<State>(
     return { ...state, loadingGet: true };
   }),
   on(loadAllByPostSuccess, (state, { result, event }) => {
-    const stateUpdated = @plurialname@Adapter.setAll(result.data, state);
+    const stateUpdated = <%= plurialname %>Adapter.setAll(result.data, state);
     stateUpdated.totalCount = result.totalCount;
     stateUpdated.lastLazyLoadEvent = event;
     stateUpdated.loadingGetAll = false;
     return stateUpdated;
   }),
-  on(loadSuccess, (state, { @name@ }) => {
-    return { ...state, current@Name@: @name@, loadingGet: false };
+  on(loadSuccess, (state, { <%= name %> }) => {
+    return { ...state, current<%= classify(name) %>: <%= name %>, loadingGet: false };
   }),
   on(failure, (state, { error }) => {
     return { ...state, loadingGetAll: false, loadingGet: false };
   }),
 );
 
-export const get@Name@ById = (id: number) => (state: State) => state.entities[id];
+export const get<%= classify(name) %>ById = (id: number) => (state: State) => state.entities[id];

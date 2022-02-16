@@ -1,8 +1,0 @@
-<app-@name@-form 
-    [@name@]="@name@Service.@name@$ | async" 
-    [airportOptions]="@name@OptionsService.airportOptions$ | async"
-    [@name@TypeOptions]="@name@OptionsService.@name@TypeOptions$ | async"
-    (cancel)="onCancelled()" 
-    (save)="onSubmitted($event)"
-></app-@name@-form>
-<bia-spinner *ngIf="@name@Service.loading$ | async" [overlay]="true"></bia-spinner>

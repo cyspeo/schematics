@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { first } from 'rxjs/operators';
 import { BiaSignalRService } from 'src/app/core/bia-core/services/bia-signalr.service';
-import { loadAllByPost } from '../store/@plurialname@-actions';
-import { getLastLazyLoadEvent } from '../store/@name@.state';
+import { loadAllByPost } from '../store/<%= plurialname %>-actions';
+import { getLastLazyLoadEvent } from '../store/<%= name%>.state';
 import { LazyLoadEvent } from 'primeng/api';
 import { AuthService } from 'src/app/core/bia-core/services/auth.service';
 import { TargetedFeature } from 'src/app/shared/bia-shared/model/signalR';
@@ -18,7 +18,7 @@ import { TargetedFeature } from 'src/app/shared/bia-shared/model/signalR';
 @Injectable({
     providedIn: 'root'
 })
-export class @Plurialname@SignalRService {
+export class <%= classify(plurialname)%>SignalRService {
   private targetedFeature: TargetedFeature;
 
   /**
@@ -34,22 +34,22 @@ export class @Plurialname@SignalRService {
    * Note: this method has been created so that we have to call one method on this class, otherwise dependency injection is not working.
    */
   initialize() {
-    console.log('%c [@Plurialname@] Register SignalR : refresh-@plurialname@', 'color: purple; font-weight: bold');
-    this.signalRService.addMethod('refresh-@plurialname@', () => {
+    console.log('%c [<%= plurialname %>] Register SignalR : refresh-<%= plurialname %>', 'color: purple; font-weight: bold');
+    this.signalRService.addMethod('refresh-<%= plurialname %>', () => {
       this.store.select(getLastLazyLoadEvent).pipe(first()).subscribe(
         (event) => {
-          console.log('%c [@Plurialname@] RefreshSuccess', 'color: green; font-weight: bold');
+          console.log('%c [<%= plurialname %>] RefreshSuccess', 'color: green; font-weight: bold');
           this.store.dispatch(loadAllByPost({ event: <LazyLoadEvent>event }));
         }
       );
     });
-    this.targetedFeature = {parentKey: this.authService.getAdditionalInfos().userData.currentSiteId.toString() , featureName : '@plurialname@'};
+    this.targetedFeature = {parentKey: this.authService.getAdditionalInfos().userData.currentSiteId.toString() , featureName : '<%= plurialname %>'};
     this.signalRService.joinGroup(this.targetedFeature);
   }
 
   destroy() {
-    console.log('%c [@Plurialname@] Unregister SignalR : refresh-@plurialname@', 'color: purple; font-weight: bold');
-    this.signalRService.removeMethod('refresh-@plurialname@');
+    console.log('%c [<%= plurialname %>] Unregister SignalR : refresh-<%= plurialname %>', 'color: purple; font-weight: bold');
+    this.signalRService.removeMethod('refresh-<%= plurialname %>');
     this.signalRService.leaveGroup(this.targetedFeature);
   }
 }

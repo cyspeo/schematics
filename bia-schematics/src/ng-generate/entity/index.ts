@@ -1,5 +1,5 @@
 import { strings } from '@angular-devkit/core';
-import { apply, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, mergeWith, move, Rule, template, url } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 
 

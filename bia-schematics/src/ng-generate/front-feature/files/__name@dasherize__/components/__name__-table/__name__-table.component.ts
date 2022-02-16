@@ -5,14 +5,14 @@ import { AuthService } from 'src/app/core/bia-core/services/auth.service';
 import { BiaMessageService } from 'src/app/core/bia-core/services/bia-message.service';
 import { BiaOptionService } from 'src/app/core/bia-core/services/bia-option.service';
 import { BiaCalcTableComponent } from 'src/app/shared/bia-shared/components/table/bia-calc-table/bia-calc-table.component';
-import { @Name@ } from '../../model/@name@';
+import { <%=classify(name)%> } from '../../model/<%=name%>';
 
 @Component({
-  selector: 'app-@name@-table',
+  selector: 'app-<%=name%>-table',
   templateUrl: '../../../../shared/bia-shared/components/table/bia-calc-table/bia-calc-table.component.html',
   styleUrls: ['../../../../shared/bia-shared/components/table/bia-calc-table/bia-calc-table.component.scss']
 })
-export class @Name@TableComponent extends BiaCalcTableComponent implements OnChanges {
+export class <%=classify(name)%>TableComponent extends BiaCalcTableComponent implements OnChanges {
 
   constructor(
     public formBuilder: FormBuilder,
@@ -26,28 +26,17 @@ export class @Name@TableComponent extends BiaCalcTableComponent implements OnCha
   public initForm() {
     this.form = this.formBuilder.group({
       id: [this.element.id], // This field is mandatory. Do not remove it.
-      msn: [this.element.msn, Validators.required],
-      isActive: [this.element.isActive],
-      lastFlightDate: [this.element.lastFlightDate],
-      deliveryDate: [this.element.deliveryDate],
-      syncTime: [this.element.syncTime],
-      capacity: [this.element.capacity, Validators.required],
-      connectingAirports: [this.element.connectingAirports],
-      @name@Type: [this.element.@name@Type?.id],
+      name: [this.element.msn, Validators.required],
     });
   }
 
     onSubmit() {
     if (this.form.valid) {
-      const @name@: @Name@ = <@Name@>this.form.value;
-      @name@.id = @name@.id > 0 ? @name@.id : 0;
-      @name@.isActive = @name@.isActive ? @name@.isActive : false;
-      @name@.connectingAirports = BiaOptionService.Differential(@name@.connectingAirports, this.element?.connectingAirports);
-      @name@.@name@Type = BiaOptionService.Clone(@name@.@name@Type);
+      const <%=name%>: <%=classify(name)%> = <<%=classify(name)%>>this.form.value;
+      <%=name%>.id = <%=name%>.id > 0 ? <%=name%>.id : 0;
 
       // force the parent key => siteId from authService or other Id from 'parent'Service
-      @name@.siteId = this.authService.getCurrentSiteId(),
-      this.save.emit(@name@);
+      this.save.emit(<%=name%>);
       this.form.reset();
     }
   }

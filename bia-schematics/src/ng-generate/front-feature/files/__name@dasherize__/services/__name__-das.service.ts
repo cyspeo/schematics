@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { @Name@ } from '../model/@name@';
+import { <%= classify(name) %> } from '../model/<%= name %>';
 import { AbstractDas } from 'src/app/core/bia-core/services/abstract-das.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class @Name@Das extends AbstractDas<@Name@> {
+export class <%= classify(name) %>Das extends AbstractDas<<%= classify(name) %>> {
   constructor(injector: Injector) {
-    super(injector, '@Plurialname@');
+    super(injector, '<%= plurialname %>');
   }
 }
