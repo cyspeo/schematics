@@ -3,12 +3,15 @@ import { Schema } from './schema';
 import { createFeatureStructureRule } from './utils/create-feature-structure-rule';
 
 
+
 // You don't have to export the function as default. You can also have more than one rule factory
 // per file.
 export default function (_options: Schema): Rule {
   
   return chain([
-    createFeatureStructureRule(_options)
+    createFeatureStructureRule(_options),
+    // TODO
+    // modifyPermissionFile(_options)
   ]);
 }
 

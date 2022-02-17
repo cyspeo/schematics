@@ -34,9 +34,9 @@ export class <%= classify(name) %>ItemComponent implements OnInit, OnDestroy {
     this.sub.add
       (
         this.store.select(getCurrent<%= classify(name) %>).subscribe((<%= name %>) => {
-          if (<%= name %>?.msn) {
+          if (<%= name %>?.name) {
             this.route.data.pipe(first()).subscribe(routeData => {
-              routeData['breadcrumb'] = <%= name %>.msn;
+              routeData['breadcrumb'] = <%= name %>.name;
             });
             this.layoutService.refreshBreadcrumb();
           }

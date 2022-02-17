@@ -29,7 +29,7 @@ export const get<%= classify(plurialname) %>TotalCount = createSelector(
   (state) => state.totalCount
 );
 
-export const getCurrent<%= classify(plurialname) %> = createSelector(
+export const getCurrent<%= classify(name) %> = createSelector(
   get<%= classify(plurialname) %>EntitiesState,
   (state) => state.current<%= classify(name) %>
 );
@@ -45,7 +45,7 @@ export const get<%= classify(name) %>LoadingGet = createSelector(
 );
 
 export const get<%= classify(name) %>LoadingGetAll = createSelector(
-  get<%= classify(plurialname) %>EntitiesState,
+  get<%= classify(name) %>EntitiesState,
   (state) => state.loadingGetAll
 );
 

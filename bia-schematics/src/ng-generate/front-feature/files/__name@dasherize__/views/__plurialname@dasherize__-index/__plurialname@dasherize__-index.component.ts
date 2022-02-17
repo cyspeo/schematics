@@ -27,7 +27,7 @@ import { <%= classify(plurialname) %>Effects } from '../../store/<%= classify(pl
 import { loadAllView } from 'src/app/shared/bia-shared/features/view/store/views-actions';
 import { <%= classify(name) %>OptionsService } from '../../services/<%= classify(name) %>-options.service';
 import { PagingFilterFormatDto } from 'src/app/shared/bia-shared/model/paging-filter-format';
-import { <%= classify(name) %>TableComponent } from 'src/app/features/<%= classify(plurialname) %>/components/<%= classify(name) %>-table/<%= classify(name) %>-table.component';
+import { <%= classify(name) %>TableComponent } from 'src/app/features/<%= name %>/components/<%= name %>-table/<%= name %>-table.component';
 
 @Component({
   selector: 'app-<%= classify(plurialname) %>-index',
@@ -158,11 +158,11 @@ export class <%= classify(plurialname) %>IndexComponent implements OnInit, OnDes
     if (this.useCalcMode) {
       if (<%= classify(name) %>?.id > 0) {
         if (this.canEdit) {
-          this.store.dispatch(update({ <%= classify(name) %>: <%= classify(name) %> }));
+          this.store.dispatch(update({ <%= classify(name) %>: <%= name %> }));
         }
       } else {
         if (this.canAdd) {
-          this.store.dispatch(create({ <%= classify(name) %>: <%= classify(name) %> }));
+          this.store.dispatch(create({ <%= classify(name) %>: <%= name %> }));
         }
       }
     }
