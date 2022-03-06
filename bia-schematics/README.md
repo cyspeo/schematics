@@ -34,13 +34,14 @@ Dans le répertoire bia
 
 # Links
 * http://blog.ezoqc.com/generer-du-code-avec-les-schemas-angular/
-* https://medium.com/humanitec-developers/update-and-insert-auto-generated-code-to-existing-typescript-html-and-json-files-with-angular-f0b00f22fb52
+* https://medium.com/humanitec-developers/update-and-insert-auto-generated-code-to-existing-typescript-html-andf-json-iles-with-angular-f0b00f22fb52
 * Very complet : https://tomastrajan.medium.com/total-guide-to-custom-angular-schematics-5c50cf90cdb4
 * https://admiquel.medium.com/angular-schematics-how-to-create-an-empty-folder-ecdf7c9e88ba
 
 # run 
 Depuis le répertoire bia : 
 - schematics .:entity Division -debug=false --dry-run=false
+- schematics ./src/collection.json:frontFeature Division -debug=false
 
 # Publish custom schematics
 - This commnand buid the package schematics-bia-1.0.0.tgz
@@ -48,4 +49,8 @@ Depuis le répertoire bia :
 - Install the package into Angular CLI workspace :
 
   - ```npm i --no-save schematics-bia-1.0.0.tgz```
+
+- Run into target project :
+  -   - ```ng g @schematics/bia:frontFeature ```
+
 

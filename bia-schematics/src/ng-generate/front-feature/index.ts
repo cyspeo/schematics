@@ -1,4 +1,5 @@
-import {  chain, Rule } from '@angular-devkit/schematics';
+import {  chain, Rule, Tree } from '@angular-devkit/schematics';
+import { addPermission } from '../../utils/ast';
 import { Schema } from './schema';
 import { createFeatureStructureRule } from './utils/create-feature-structure-rule';
 
@@ -11,10 +12,18 @@ export default function (_options: Schema): Rule {
   return chain([
     createFeatureStructureRule(_options),
     // TODO
-    // modifyPermissionFile(_options)
+    modifyPermissionFile(_options)
   ]);
 }
 
 export function capitalize(value: string) : string {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function modifyPermissionFile(options: Schema) {
+  return async (host: Tree) => {
+    const permissionPath =  `/src/app/shared/permission.ts`;
+    // const permissionPath = '\\src\\ng-generate\\front-feature\\utils\\permission.ts'
+    addPermission(host, permissionPath,options.name+'_AssignToSite',options.name+'_Assign_To_Site');
+  };
 }
